@@ -1,14 +1,17 @@
 // controllers/authController.js
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+
+const Secret = process.env.JWT_SECRET
 
 async function cadastrarUsuario(request, reply) {
 
   const {  email, senha } = request.body;
 
+
   try {
- 
 
 
     const usuarioExistente = await prisma.user.findUnique({
@@ -23,13 +26,18 @@ async function cadastrarUsuario(request, reply) {
     }
     const hashedPassword = await bcrypt.hash(senha, 10);
 
+
+
     const novoUsuario = await prisma.user.create({
       data: {
-        email: email, // Substitua "email" pelo valor do email que deseja usar
-        senha: hashedPassword, // Substitua "senha" pelo valor da senha que deseja usar
+        email: email, 
+        senha: hashedPassword, 
       },
     });
-    reply.send({ message: 'Cadastro bem-sucedido', usuario: novoUsuario });
+
+   
+
+    reply.send({ message: 'Cadastro bem-sucedido', usuario: novoUsuario});
   } catch (error) {
     console.error('Erro ao cadastrar usuário:', error);
     reply.status(500).send({ message: 'Erro interno ao cadastrar usuário.' });
@@ -66,8 +74,10 @@ async function loginUsuario(request,reply){
     if (!isPasswordValid) {
       return reply.status(401).send({ error: 'Senha incorreta' });
     }
-     
-    reply.send({message: 'Sucesso login',usuario: usuario,sucesso: 1})
+
+    const token = jwt.sign({email: usuario.email , userId: usuario.userId}, Secret) 
+
+    reply.send({message: 'Sucesso login',usuario: usuario,sucesso: 1, token: token})
 
   } catch (error) {
     
@@ -77,7 +87,33 @@ async function loginUsuario(request,reply){
 
 }
 
+async function verificarToken  (request,reply,next) {
+
+  const tokenHeader = request.headers["authorization"];
+  const token = tokenHeader && tokenHeader.split(" ")[1];
+
+  if(!token){
+
+    reply.status(401).send({message: "Não autorizado"})
+  }
+
+  try {
+
+    const decodedToken = jwt.verify(token, Secret);
+    request.userId = decodedToken.userId;
+    next();
+    
+  } catch (error) {
+    console.error('Erro ao realizar login:', error);
+    reply.status(500).send({ message: 'Erro interno ao realizar login.' });
+  }
+
+}
+
+
 module.exports = {
   cadastrarUsuario,
   loginUsuario,
+  verificarToken,
+  
 };

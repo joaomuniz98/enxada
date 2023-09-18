@@ -2,7 +2,9 @@
   "dependencies": {
     "@prisma/client": "^5.3.1",
     "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "fastify": "^4.23.2",
-    "fastify-mysql": "^2.2.0"
+    "fastify-mysql": "^2.2.0",
+    "jsonwebtoken": "^9.0.2"
   }
 }
