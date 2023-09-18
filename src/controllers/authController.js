@@ -60,7 +60,8 @@ async function loginUsuario(request,reply){
       return;
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log(senha)
+    const isPasswordValid = await bcrypt.compareSync(senha, usuario.senha);
 
     if (!isPasswordValid) {
       return reply.status(401).send({ error: 'Senha incorreta' });
