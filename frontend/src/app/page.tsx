@@ -1,8 +1,13 @@
 import Image from 'next/image'
+
+import Aside from './_layouts/Aside'
+
 import styles from './page.module.css'
 
 export default function Home() {
   return (
-    <h1>Hello World!</h1>
+    <main className='max-w-[100em] px-@section mx-auto overflow-scroll bg-slate-400'>
+      <h1 className='text-9xl text-white font-bold'>Enxada Bet</h1>
+    </main>
   )
 }
