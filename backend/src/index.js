@@ -1,9 +1,7 @@
 const Fastify = require('fastify');
-const { PrismaClient } = require('@prisma/client');
-
 const PORT = process.env.PORT || 3100;
-const { cadastrarUsuario , loginUsuario , verificarToken  } = require('./controllers/authController');
-const { verificarTokenMine , criarPartidaMine } = require('./controllers/mine/mineController')
+const { cadastrarUsuario , loginUsuario   } = require('./controllers/authController');
+const {  criarPartidaMine } = require('./controllers/mine/mineController')
 
 const fastify = Fastify({
   logger: true,
@@ -15,9 +13,7 @@ fastify.register(require('fastify-mysql'), {
 
 fastify.post('/login', loginUsuario);
 fastify.post('/cadastro', cadastrarUsuario);
-fastify.post('/mine', {
-  preHandler: verificarTokenMine,
-}, criarPartidaMine);
+fastify.post('/mine', criarPartidaMine);
 
 
 fastify.listen(PORT)
