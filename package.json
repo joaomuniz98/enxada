@@ -5,6 +5,7 @@
     "bcryptjs": "^2.4.3",
     "fastify": "^4.23.2",
     "fastify-mysql": "^2.2.0",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.0.1"
   }
 }

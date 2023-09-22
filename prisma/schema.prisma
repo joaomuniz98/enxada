@@ -20,3 +20,13 @@ model User {
   emailConfirmed Boolean  @default(false)
   userId        String   @default(uuid())
 }
+
+model Mine {
+   id      Int      @id @default(autoincrement())
+   userId  String
+   matriz  String  
+   valor   Int
+   estado  Boolean
+   qtdMine Int
+   idMatch  String  
+}

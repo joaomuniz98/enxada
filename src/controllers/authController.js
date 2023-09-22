@@ -92,6 +92,8 @@ async function verificarToken  (request,reply,next) {
   const tokenHeader = request.headers["authorization"];
   const token = tokenHeader && tokenHeader.split(" ")[1];
 
+  console.log("token",token)
+  
   if(!token){
 
     reply.status(401).send({message: "Não autorizado"})
