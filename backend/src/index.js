@@ -7,9 +7,7 @@ const fastify = Fastify({
   logger: true,
 });
 
-fastify.register(require('fastify-mysql'), {
-  connectionString: 'mysql://root:admin@localhost:3306/enxada',
-});
+
 
 fastify.post('/login', loginUsuario);
 fastify.post('/cadastro', cadastrarUsuario);
