@@ -1,0 +1,11 @@
+version: '3'
+services: 
+  api-fastif:
+    container_name: enxada-api
+    build: 
+      context: ./backend
+      dockerfile: dev.DockerFile
+    ports:
+      - 3100:3100
+      
+

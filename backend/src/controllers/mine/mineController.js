@@ -4,40 +4,22 @@ const jwt = require('jsonwebtoken')
 
 const Secret = process.env.JWT_SECRET
 
-
-async function verificarTokenMine(request, reply, next) {
-  const { valor, qtdMine } = request.body;
-  const tokenHeader = request.headers["authorization"];
-  const token = tokenHeader && tokenHeader.split(" ")[1];
-
-  if (!token) {
-    reply.status(401).send({ message: "Não autorizado" });
-    return;
-  }
-
-  try {
-    const decodedToken = jwt.verify(token, Secret);
-    request.userId = decodedToken.userId;
-    request.qtdMine = qtdMine;
-    request.valor = valor;
-    next();
-  } catch (error) {
-    console.error('Erro ao verificar token:', error);
-    reply.status(401).send({ message: 'Token inválido' });
-  }
-}
-
-
-
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
  
 async function criarPartidaMine(request, reply) {
   
+  const { valor , qtdMine  }  = request.body
+  const tokenHeader = request.headers["authorization"];
+  const token = tokenHeader && tokenHeader.split(" ")[1];
+  const decodedToken = jwt.verify(token, Secret);
+  let userId = decodedToken.userId;
+
+
   try {
 
-    const qtdMine = request.qtdMine;
+   
 
     const matriz = [ 
       [0, 0, 0, 0, 0],
@@ -77,28 +59,34 @@ async function criarPartidaMine(request, reply) {
 
       arrayPosicoes.push(valorLinhaColuna);
       matriz[linhaInt][colunaInt] =  1
+
+     
     }
 
-    let userId = request.userId;
-    let valor = parseInt(request.valor);
-   
     let matrizConvertida = JSON.stringify(matriz);
 
+
+    debugger
     const novoJogo = await prisma.mine.create({
-      data: {
-        userId: userId,
-        valor: valor,
-        qtdMine: parseInt(qtdMine),
-        estado: true,
-        matriz: matrizConvertida,
-        idMatch: "ulalasd"
-      },
-    });
-    
-    reply.status(200).send({ message: novoJogo });
+
+    data: {
+
+      userId: userId,
+      valor: parseInt(valor),
+      qtdMine: parseInt(qtdMine),
+      estado: true, 
+      matriz: matrizConvertida,
+      idMatch: "ulalasd"
+    },
+ 
+})
+   reply.send({ message: novoJogo });
+   debugger
   } catch (err) {
-  
+    console.log(err)
     reply.code(401).send({ error: err });
+  }finally {
+    await prisma.$disconnect();
   }
 }
 
@@ -106,5 +94,5 @@ async function criarPartidaMine(request, reply) {
 module.exports = {
 
     criarPartidaMine,
-    verificarTokenMine
-}
+ 
+};

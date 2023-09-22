@@ -26,16 +26,12 @@ async function cadastrarUsuario(request, reply) {
     }
     const hashedPassword = await bcrypt.hash(senha, 10);
 
-
-
     const novoUsuario = await prisma.user.create({
       data: {
         email: email, 
         senha: hashedPassword, 
       },
     });
-
-   
 
     reply.send({ message: 'Cadastro bem-sucedido', usuario: novoUsuario});
   } catch (error) {
