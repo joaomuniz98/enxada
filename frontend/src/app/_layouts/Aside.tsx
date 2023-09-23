@@ -18,7 +18,7 @@ export default function Aside({ }: AsideProps) {
           <CaretDownIcon color='#fff' />
         </div>
         <article>
-          {games.map(x => <p className='text-white/50 my-@gap border-b-2 border-white/20'>{x}</p>)}
+          {games.map((x,i) => <p key={`game_${i}`} className='text-white/50 my-@gap border-b-2 border-white/20'>{x}</p>)}
         </article>
       </div>
     </aside>
