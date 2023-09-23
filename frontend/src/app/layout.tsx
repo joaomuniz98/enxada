@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google'
 import Aside from './_layouts/Aside'
 import Header from './_layouts/Header'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin']  })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
