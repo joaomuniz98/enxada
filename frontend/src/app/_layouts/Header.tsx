@@ -1,10 +1,14 @@
 'use client';
 
+import { useRouter } from "next/navigation";
+
 interface HeaderProps {
 
 }
 
 export default function Header({ }: HeaderProps) {
+  const router = useRouter();
+
   return (
     <header className="max-w-[100em] h-auto flex flex-col items-stretch mx-auto px-@section">
       <div className="py-4 h-1/4 bg-red-700 [clip-path:_inset(0_-100vmax)] shadow-[0_0_0_100vmax_rgb(185_28_28)] grid place-content-center">
@@ -18,8 +22,9 @@ export default function Header({ }: HeaderProps) {
         <ul className="list-none">
           <li>Mine</li>
         </ul>
-        <div>
-
+        <div className="flex gap-4 float-right">
+          <button onClick={() => router.replace("?modal=login")} className="text-white text-base font-medium">Login</button>
+          <button onClick={() => router.replace("?modal=signin")}  className="text-white text-base font-medium bg-red-600 p-4 rounded-md">Cadastrar-se</button>
         </div>
       </div>
     </header>
