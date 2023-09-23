@@ -1,6 +1,7 @@
 'use client';
 
 import UserProvider from "./UserContextProvider";
+import GamesProvider from "./GamesContextProvider";
 
 interface ProvidersProps {
   children: React.ReactNode
@@ -8,8 +9,10 @@ interface ProvidersProps {
 
 export default function Providers({ children }: ProvidersProps) {
   return (
-    <UserProvider>
-      {children}
-    </UserProvider>
+    <GamesProvider>
+      <UserProvider>
+        {children}
+      </UserProvider>
+    </GamesProvider>
   )
 }
