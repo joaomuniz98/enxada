@@ -7,7 +7,6 @@ export class AuthService {
     if (!baseURL) {
       throw new Error("NEXT_PUBLIC_BACKEND_URL undefined")
     }
-
     this.instance = axios.create({
       baseURL,
       timeout: 30000,

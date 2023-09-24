@@ -1,13 +1,11 @@
-import Image from 'next/image'
-
-import Aside from './_layouts/Aside'
-
-import styles from './page.module.css'
+import Hero from './_layouts/Hero'
+import Games from './_layouts/Games'
 
 export default function Home() {
   return (
-    <main className='max-w-[100em] px-@section mx-auto overflow-scroll bg-slate-400'>
-      <h1 className='text-9xl text-white font-bold'>Enxada Bet</h1>
+    <main className='w-full sticky mx-auto'>
+      <Hero />
+      <Games />
     </main>
   )
 }
