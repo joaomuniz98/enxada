@@ -1,39 +1,36 @@
 // TODO: Criar o contexto de games para transitar de pag
 
 import { usePathname } from "next/navigation";
-import React, { ReactNode, createContext, useEffect,useState } from "react";
+
+import React, { ReactNode, createContext, useEffect, useState } from "react";
+
 import Game from "./enumGame";
 
 export const GamesContext = createContext(Game.Nothing)
 
 interface GamesProviderProps {
-    children: ReactNode
+  children: ReactNode
 }
 
-export default function GamesProvider({children}:GamesProviderProps){
+export default function GamesProvider({ children }: GamesProviderProps) {
+  const [game, setGame] = useState(Game.Nothing)
+  const pathName = usePathname();
 
-    const [game,setGame] = useState(Game.Nothing)
-    const pathName = usePathname();
+  useEffect(() => {
 
-    useEffect(() =>{ 
-             
-          if(pathName.includes('/mine')){
-               
-             setGame(Game.Mine)
-          }
+    if (pathName.includes('/mine')) {
+
+      setGame(Game.Mine)
+    }
 
 
-     },[pathName])
-    
+  }, [pathName])
 
-  
-    return (
-        
-          
-        <GamesContext.Provider value={game} >
-                {children}
-        </GamesContext.Provider>
-    )
+  return (
+    <GamesContext.Provider value={game} >
+      {children}
+    </GamesContext.Provider>
+  )
 }
 
 
