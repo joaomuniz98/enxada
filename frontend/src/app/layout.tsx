@@ -21,11 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-<<<<<<< HEAD
-      <body className={`${inter.className} h-screen flex flex-col`}>
-=======
       <body className={`${poppins.className} bg-@dark-sec sticky top-0 h-screen flex flex-col`}>
->>>>>>> fd776f763466f58502f0a3d8e5e2fd3f7c5402f5
         <Providers>
           <div className='grid grid-cols-[auto_1fr] grid-rows-[auto_1fr]'>
             <Aside />
