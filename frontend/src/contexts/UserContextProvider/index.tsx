@@ -17,8 +17,7 @@ export default function UserProvider({ children }: UserProviderProps) {
   const [user, setUser] = useState({} as User)
 
   useLayoutEffect(() => {
-
-
+    
 
   }, [])
 

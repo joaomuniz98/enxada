@@ -3,6 +3,8 @@
 import { CaretDownIcon } from '@radix-ui/react-icons'
 import { useRouter } from 'next/navigation';
 
+import CustomButton from '@/components/CustomButton';
+
 interface AsideProps {
 
 }
@@ -14,15 +16,15 @@ export default function Aside({ }: AsideProps) {
   const router  = useRouter()
 
   return (
-    <aside className="w-auto text-white z-10 pt-@lg justify-center items-center px-@sm  bg-slate-800 h-screen">
-      <button className="p-4 rounded-md w-max text-white text-lg bg-green-600">Resgatar ticket 🎉</button>
+    <aside className="w-auto text-white z-10 [clip-path:_inset(-100vmax_0)] shadow-[0_0_0_100vmax_#0E0C2B] col-span-1 row-span-2 pt-@lg sticky justify-center items-center px-@sm bottom-0 bg-@dark h-screen">
+      <CustomButton>Resgatar ticket 🎉</CustomButton>
       <div className="flex flex-col mt-@sm">
         <div className="flex justify-between items-center mb-4">
-        <h5>Games da Enxada</h5>
+          <h5>Nossos jogos</h5>
           <CaretDownIcon color='#fff' />
         </div>
         <article>
-          {games.map((x,i) => <p key={`game_${i}`} onClick={() => router.push('/mine')} className='text-white/50 my-@gap border-b-2 border-white/20'>{x}</p>)}
+          {games.map((x, i) => <p key={`game_${i}`} className='text-white/50 my-@gap border-b-2 border-white/20'>{x}</p>)}
         </article>
       </div>
     </aside>
