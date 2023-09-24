@@ -1,6 +1,7 @@
 'use client';
 
 import { CaretDownIcon } from '@radix-ui/react-icons'
+import { useRouter } from 'next/navigation';
 
 interface AsideProps {
 
@@ -9,6 +10,9 @@ interface AsideProps {
 const games = ["Mine", "Cannon", "Carrot"]
 
 export default function Aside({ }: AsideProps) {
+
+  const router  = useRouter()
+
   return (
     <aside className="w-auto text-white z-10 pt-@lg justify-center items-center px-@sm  bg-slate-800 h-screen">
       <button className="p-4 rounded-md w-max text-white text-lg bg-green-600">Resgatar ticket 🎉</button>
@@ -18,7 +22,7 @@ export default function Aside({ }: AsideProps) {
           <CaretDownIcon color='#fff' />
         </div>
         <article>
-          {games.map((x,i) => <p key={`game_${i}`} className='text-white/50 my-@gap border-b-2 border-white/20'>{x}</p>)}
+          {games.map((x,i) => <p key={`game_${i}`} onClick={() => router.push('/mine')} className='text-white/50 my-@gap border-b-2 border-white/20'>{x}</p>)}
         </article>
       </div>
     </aside>

@@ -13,7 +13,7 @@ export default function Modal({ }: ModalProps) {
   const searchParams = useSearchParams()
   const modal = searchParams.get("modal")
 
-  console.log("modal queryParams value: ", modal)
+
 
   switch (modal) {
     case "signin":

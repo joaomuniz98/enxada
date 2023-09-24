@@ -8,7 +8,13 @@ class MineHttpClient extends BaseHttpClient {
   getMineGameSchedule() {
     const auth = this.createAuthHeader(process.env.NEXT_PUBLIC_BACKEND_URL)
 
-    const data = this.get("/mine", auth)
+    const data = this.post("/mine", auth)
     return data
   }
+
+  isGameOver(row: number, col: number) {
+        const data = this.post("/mine")  
+  }
+
+  
 }

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 import Aside from './_layouts/Aside'
-
+import Mine from './mine/_layouts/Mine'
 import styles from './page.module.css'
 
 export default function Home() {
