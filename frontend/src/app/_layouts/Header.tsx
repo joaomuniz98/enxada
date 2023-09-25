@@ -14,7 +14,7 @@ export default function Header({ }: HeaderProps) {
   const game = useGameContext()
 
   return (
-    <header className="w-full h-auto flex flex-col sticky top-0 z-10 items-stretch">
+    <header className="w-full h-36   flex flex-col sticky top-0 z-10 items-stretch">
       <div className="max-w-[100em] px-@section mx-auto py-8 h-1/4 bg-@primary [clip-path:_inset(0_-100vmax)] shadow-[0_0_0_100vmax_#9EC913] grid place-content-center">
         <h5 className="text-center text-white text-base">Seja bem-vindo a Enxadata bet! Receba um bônus de primeira vez 🎁</h5>
       </div>

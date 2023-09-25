@@ -9,7 +9,7 @@ interface HeroProps { }
 
 export default function Hero({ }: HeroProps) {
   return (
-    <section className="relative [clip-path:_inset(0_-100vmax)] max-w-@baseSectionWidth mx-auto pt-@md px-@section pb-@container grid grid-cols-2">
+    <section style={{ height:"85%"}} className="relative   items-center mx-auto pt-@md px-@section pb-@container grid grid-cols-2">
       { <img className="absolute  h-full w-full object-cover  left-0 right-0 top-0 bottom-0 bg-blend-screen bg-blue-500 bg-opacity-50 opacity-50 multiply" src="/poco-hero.png" alt="Imagem do poço" /> }
       <div className="z-10">
         <h1 className="text-6xl leading-relaxed mb-8 font-bold text-white z-99">Bonûs de depósito de 100% + 40 rodadas grátis</h1>
