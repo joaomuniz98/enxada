@@ -1,7 +1,8 @@
 'use client';
 
 import Mine from "./_components/Mine";
-
+import CustomInput from "@/components/CustomInput";
+import {  AiFillDollarCircle } from 'react-icons/ai'
 interface MineGameProps {
 
 }
@@ -23,8 +24,8 @@ export default async function MinePage({ }: MineGameProps) {
 	<div className="h-full w-full flex items-center justify-center">
 		<div className="flex row-auto w-8/12 h-5/6 justify-center ">
 
-			<div  className="h-full w-2/4 border border-solid border-red-500">
-				  <input type="text" alt="valor" />
+			<div  className="h-full w-2/4 border border-solid border-red-500 flex  flex-col items-center justify-center	">
+						<CustomInput/>
 			</div>
 
 			<div className="w-full h-full border border-solid border-red-500 flex items-center justify-center " >
