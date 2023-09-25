@@ -19,17 +19,25 @@ export default async function MinePage({ }: MineGameProps) {
 	const matriz = getEntityMatrice(lenght)
 	
 	return (
-		<div className="w-full h-full  " style={{ gridTemplateColumns: "20% 80%" }}>
-	      <div className="">
 
-				</div>
-				<div className="">
-		<div 
-		className="w-full grid" 
-		style={{gridTemplateColumns: `repeat(${lenght}, 1fr)`, gridTemplateRows: `repeat(${lenght}, 1fr)`}}
-		>
-			{matriz.map((row, rowVal) => row.map((_, colVal) => <Mine col={colVal} row={rowVal} /> ))}
-		</div>
+	<div className="h-full w-full flex items-center justify-center">
+		<div className="flex row-auto w-8/12 h-5/6 justify-center ">
+
+			<div  className="h-full w-2/4 border border-solid border-red-500">
+				  <input type="text" alt="valor" />
+			</div>
+
+			<div className="w-full h-full border border-solid border-red-500 flex items-center justify-center " >
+						
+				<div className="grid aspect-square h-[30vw] 	" >
+					<div 
+					className="w-full grid " 
+					style={{gridTemplateColumns: `repeat(${lenght}, 1fr)`, gridTemplateRows: `repeat(${lenght}, 1fr)`,margin: "0", padding: "0"}}
+					>
+						{matriz.map((row, rowVal) => row.map((_, colVal) => <Mine col={colVal} row={rowVal} /> ))}
+					</div>
+					</div>
+			</div>
 		</div>
 		</div>
 	);
