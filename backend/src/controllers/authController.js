@@ -1,4 +1,4 @@
-// controllers/authController.js
+
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const bcrypt = require('bcryptjs')
@@ -9,10 +9,7 @@ const Secret = process.env.JWT_SECRET
 async function cadastrarUsuario(request, reply) {
 
   const {  email, senha } = request.body;
-
-
   try {
-
 
     const usuarioExistente = await prisma.user.findUnique({
       where: {
@@ -20,19 +17,22 @@ async function cadastrarUsuario(request, reply) {
       },
     });
 
+ 
     if (usuarioExistente) {
       reply.status(400).send({ message: 'Este e-mail já está em uso.' });
       return;
     }
     const hashedPassword = await bcrypt.hash(senha, 10);
 
+  
     const novoUsuario = await prisma.user.create({
       data: {
         email: email, 
         senha: hashedPassword, 
-        valor_conta: 0
+        valor_conta: 1000
       },
     });
+    
 
     reply.send({ message: 'Cadastro bem-sucedido', usuario: novoUsuario});
   } catch (error) {

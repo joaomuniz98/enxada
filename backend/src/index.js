@@ -10,11 +10,10 @@ fastify.register(require('fastify-cors'), {
   // put your options here
 })
 
-
 fastify.post('/login', loginUsuario);
-fastify.post('/cadastro', cadastrarUsuario);
+fastify.post('/create-user', cadastrarUsuario);
 fastify.post('/mine', criarPartidaMine);
-fastify.post('/mine/jogar',partidaAndamento)
+fastify.post('/mine/game',partidaAndamento)
 
 
 fastify.listen(PORT)

@@ -32,5 +32,6 @@ model Mine {
    estado   Boolean
    qtdMine  Int
    idMatch  String  
+   posicaoJson Json?
    user     User?   @relation(fields: [userId], references: [userId])
 }
