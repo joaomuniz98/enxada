@@ -10,8 +10,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        "@smal": "0.6875rem",
+        "@body": "1rem",
+        "@strong": "2rem",
+        "@title": "4rem"
+      },
       fontFamily: {
-        "poppins": "var(--font-poppins)"    
+        "poppins": "var(--font-poppins)", 
+        "inter": "var(--font-inter)"
       },
       colors: {
         "@primary": "#9EC913",

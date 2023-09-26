@@ -6,7 +6,7 @@ import Aside from './_layouts/Aside'
 import Header from './_layouts/Header'
 import Providers from '@/contexts/Providers'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], variable: "--font-inter", weight: ["300", "400", "500"] })
 const poppins = Poppins({ weight: ["300", "400", "500", "700"], subsets: ["latin"], variable: "--font-poppins" })
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} bg-@dark-sec sticky top-0 h-screen flex flex-col`}>
+      <body className={`${poppins.className} ${inter.className} font-poppins bg-@dark-sec sticky top-0 h-screen flex flex-col`}>
         <Providers>
           <div className='grid grid-cols-[auto_1fr] grid-rows-[auto_1fr]'>
             <Aside />

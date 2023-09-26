@@ -4,7 +4,7 @@
 import { VariantProps, cva } from 'class-variance-authority'
 
 const variants = cva(
-  "px-4 py-4 text-center font-medium text-lg", {
+  "px-4 py-3 text-center font-medium text-lg", {
   variants: {
     variant: {
       normal: "bg-@primary text-white rounded-md",
