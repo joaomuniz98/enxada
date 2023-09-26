@@ -15,20 +15,24 @@ model User {
   id            Int      @id @default(autoincrement()) // Autoincremento de tipo inteiro
   email         String   @unique
   senha         String
-  valorConta    Int   
+  valorConta    Float   
   isMod         Boolean  @default(false)
   isAdmin       Boolean  @default(false)
   createdAt     DateTime @default(now())
   emailConfirmed Boolean  @default(false)
   userId        String   @default(uuid())
+  games    Mine[]
+
 }
 
 model Mine {
    id      Int      @id  @default(autoincrement())
    userId  String
    matriz  String  
-   valor   Int
+   valor   Float
    estado  Boolean
    qtdMine Int
    idMatch  String  
+   user User @relation(fields: [userId],references: [email])
+  
 }

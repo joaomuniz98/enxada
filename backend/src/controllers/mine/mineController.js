@@ -75,6 +75,30 @@ async function criarPartidaMine(request, reply) {
     },
  
 })
+  const buscarUser = await prisma.user.findUnique({where:{
+    userId: userId
+  }})
+
+  let valorUser = buscarUser.valor
+
+  if(valorUser.valor > valor){
+
+        let novoValor = valorUser.valor - valor;
+
+       await prisma.user.update({where:{
+          userId: userId
+          ,
+        },
+        data:{
+          valor: novoValor 
+        }
+      })
+      
+  }else{
+
+    reply.status(401).send({ message: "Não tem fundos suficientes." });
+  }
+
    reply.send({ message: novoJogo });
    debugger
   } catch (err) {
@@ -86,27 +110,33 @@ async function criarPartidaMine(request, reply) {
 }
 
 async function partidaAndamento(request,reply){
- 
+
 const { idMatch , userId , posicao } = request.body
 
+console.log("IdMatch" + idMatch)
+console.log("userId" + userId)
+console.log("posicao" + idMatch)
 
-const  procurarPartidaCriada = await prisma.mine.findUnique({
+const  procurarPartidaCriada = await prisma.mine.findFirst({
   where: {
     idMatch: idMatch,
     userId: userId,
     estado: false,
   },
 });
-       
-let matriz  = procurarPartidaCriada.matriz
-let posicaoSeleciona = posicao
+    debugger   
+let matriz  = JSON.parse(procurarPartidaCriada.matriz);
 
-let linha = posicaoSeleciona[0]
-let coluna =  posicaoSeleciona[1]
 
-let resultado 
+const str = posicao;
+const numeros = str.match(/\d+/g); 
 
- resultado = matriz[linha][coluna]
+  const linha = parseInt(numeros[0], 10); // Converte para um número inteiro
+  const coluna = parseInt(numeros[1], 10); // Converte para um número inteiro
+
+  let resultado;
+    resultado = matriz[linha][coluna];
+
 
  if(resultado === 1){
     reply.send({estadoGame: 1})
@@ -119,5 +149,6 @@ let resultado
 module.exports = {
 
     criarPartidaMine,
+    partidaAndamento
  
 };
