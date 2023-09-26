@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const jwt = require('jsonwebtoken')
-
+const { v4: uuidv4 } = require('uuid');
 const Secret = process.env.JWT_SECRET
 
 function getRandomInt(max) {
@@ -16,10 +16,36 @@ async function criarPartidaMine(request, reply) {
   const decodedToken = jwt.verify(token, Secret);
   let userId = decodedToken.userId;
 
-
   try {
 
-   
+    
+const user = await prisma.user.findUnique({
+  where: {
+    userId: userId,
+  },
+});
+
+
+if(user){
+
+  const valorAtual = user.valor
+
+  const valorNovo = valorAtual - valor
+
+  const atualizacaoUsuario = await prisma.user.update({
+    where: {
+      userId: userId,
+    },
+    data: {
+      valor: novoValor,
+    },
+  });
+
+  console.log(`O novo valor do usuário ${userId} é: ${novoValor}`);
+} else {
+  console.error(`Usuário com userId ${userId} não encontrado`);
+}
+
 
     const matriz = [ 
       [0, 0, 0, 0, 0],
@@ -65,21 +91,43 @@ async function criarPartidaMine(request, reply) {
 
     let matrizConvertida = JSON.stringify(matriz);
 
-
-    debugger
+    const uuid = uuidv4();
     const novoJogo = await prisma.mine.create({
 
     data: {
-
       userId: userId,
       valor: parseInt(valor),
       qtdMine: parseInt(qtdMine),
-      estado: true, 
+      estado: false, 
       matriz: matrizConvertida,
-      idMatch: "ulalasd"
+      idMatch: uuid
     },
  
 })
+  const buscarUser = await prisma.user.findUnique({where:{
+    userId: userId
+  }})
+
+  let valorUser = buscarUser.valor
+
+  if(valorUser.valor > valor){
+
+        let novoValor = valorUser.valor - valor;
+
+       await prisma.user.update({where:{
+          userId: userId
+          ,
+        },
+        data:{
+          valor: novoValor 
+        }
+      })
+      
+  }else{
+
+    reply.status(401).send({ message: "Não tem fundos suficientes." });
+  }
+
    reply.send({ message: novoJogo });
    debugger
   } catch (err) {
@@ -90,9 +138,49 @@ async function criarPartidaMine(request, reply) {
   }
 }
 
+async function partidaAndamento(request,reply){
+
+const { idMatch , userId , posicao } = request.body
+
+console.log("IdMatch" + idMatch)
+console.log("userId" + userId)
+console.log("posicao" + idMatch)
+
+const  procurarPartidaCriada = await prisma.mine.findFirst({
+  where: {
+    idMatch: idMatch,
+    userId: userId,
+    estado: false,
+  },
+});
+    
+let matriz  = JSON.parse(procurarPartidaCriada.matriz);
+
+
+let posicaoSeleciona = posicao
+
+
+const str = posicao;
+const numeros = str.match(/\d+/g); 
+
+  const linha = parseInt(numeros[0], 10); // Converte para um número inteiro
+  const coluna = parseInt(numeros[1], 10); // Converte para um número inteiro
+
+  let resultado;
+    resultado = matriz[linha][coluna];
+
+
+ if(resultado === 1){
+    reply.send({estadoGame: 1})
+ } else{
+    reply.send({estadoGame: 0})
+ }
+}
+
 
 module.exports = {
 
     criarPartidaMine,
+    partidaAndamento
  
 };

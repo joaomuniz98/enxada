@@ -30,6 +30,7 @@ async function cadastrarUsuario(request, reply) {
       data: {
         email: email, 
         senha: hashedPassword, 
+        valorConta: 0,
       },
     });
 

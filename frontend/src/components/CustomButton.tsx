@@ -1,13 +1,15 @@
 'use client';
 
+
 import { VariantProps, cva } from 'class-variance-authority'
 
 const variants = cva(
-  "px-4 py-4 text-white text-center font-medium text-lg", {
+  "px-4 py-4 text-center font-medium text-lg", {
   variants: {
     variant: {
-      normal: "bg-@primary rounded-md",
-      underline: "underline"
+      normal: "bg-@primary text-white rounded-md",
+      underline: "underline text-white",
+      inverted: "text-@primary bg-white rounded-md"
     }
   },
   defaultVariants: {
@@ -18,7 +20,7 @@ const variants = cva(
 
 interface CustomButtonProps
   extends VariantProps<typeof variants>,
-  React.HTMLAttributes<HTMLButtonElement> { }
+  React.ButtonHTMLAttributes<HTMLButtonElement> { }
 
 
 export default function CustomButton({ className, variant, children, ...rest }: CustomButtonProps) {
