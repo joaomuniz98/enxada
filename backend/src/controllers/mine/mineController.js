@@ -15,18 +15,18 @@ async function criarPartidaMine(request, reply) {
   const token = tokenHeader && tokenHeader.split(" ")[1];
   const decodedToken = jwt.verify(token, Secret);
   let userId = decodedToken.userId;
+  let email  = decodedToken.email
 
   try {
 
-    
 const user = await prisma.user.findUnique({
   where: {
-    userId: userId,
+    email: email,
+    userId: userId
   },
 });
 
-
-if(user){
+if(user.valor >= valor){
 
   const valorAtual = user.valor
 
@@ -92,43 +92,20 @@ if(user){
     let matrizConvertida = JSON.stringify(matriz);
 
     const uuid = uuidv4();
-    const novoJogo = await prisma.mine.create({
 
-    data: {
-      userId: userId,
-      valor: parseInt(valor),
-      qtdMine: parseInt(qtdMine),
-      estado: false, 
-      matriz: matrizConvertida,
-      idMatch: uuid
-    },
- 
-})
-  const buscarUser = await prisma.user.findUnique({where:{
-    userId: userId
-  }})
+    const novoJogoDoUsuario = await prisma.mine.create({
+      data: {
+        userId: user.userId,
+        valor: parseFloat(valor),
+        qtdMine: parseInt(qtdMine),
+        estado: false,
+        matriz: matrizConvertida,
+        idMatch: uuid,
+      }
+    });
 
-  let valorUser = buscarUser.valor
 
-  if(valorUser.valor > valor){
-
-        let novoValor = valorUser.valor - valor;
-
-       await prisma.user.update({where:{
-          userId: userId
-          ,
-        },
-        data:{
-          valor: novoValor 
-        }
-      })
-      
-  }else{
-
-    reply.status(401).send({ message: "Não tem fundos suficientes." });
-  }
-
-   reply.send({ message: novoJogo });
+   reply.send({ message: novoJogoDoUsuario });
    debugger
   } catch (err) {
     console.log(err)
@@ -141,11 +118,7 @@ if(user){
 async function partidaAndamento(request,reply){
 
 const { idMatch , userId , posicao } = request.body
-
-console.log("IdMatch" + idMatch)
-console.log("userId" + userId)
-console.log("posicao" + idMatch)
-
+debugger
 const  procurarPartidaCriada = await prisma.mine.findFirst({
   where: {
     idMatch: idMatch,
@@ -153,9 +126,8 @@ const  procurarPartidaCriada = await prisma.mine.findFirst({
     estado: false,
   },
 });
-    
+    debugger
 let matriz  = JSON.parse(procurarPartidaCriada.matriz);
-let posicaoSeleciona = posicao
 
 const str = posicao;
 const numeros = str.match(/\d+/g); 
@@ -168,8 +140,33 @@ const numeros = str.match(/\d+/g);
 
 
  if(resultado === 1){
-    reply.send({estadoGame: 1})
+
+   let valorMutiply =  procurarPartidaCriada.valor * 2
+
+  await prisma.mine.update({
+    where: {
+      idMatch: idMatch,
+      userId: userId,
+      estado: false,
+    },
+    data:{
+      valor: valorMutiply
+    }
+  });
+    reply.send({estadoGame: 1 , valorGanho: valorMutiply})
+
  } else{
+
+ await prisma.mine.update({
+    where: {
+      idMatch: idMatch,
+      userId: userId,
+      estado: false,
+    },
+    data:{
+      estado: true
+    }
+  });
     reply.send({estadoGame: 0})
  }
 }
