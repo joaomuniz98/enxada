@@ -155,16 +155,13 @@ const  procurarPartidaCriada = await prisma.mine.findFirst({
 });
     
 let matriz  = JSON.parse(procurarPartidaCriada.matriz);
-
-
 let posicaoSeleciona = posicao
-
 
 const str = posicao;
 const numeros = str.match(/\d+/g); 
 
-  const linha = parseInt(numeros[0], 10); // Converte para um número inteiro
-  const coluna = parseInt(numeros[1], 10); // Converte para um número inteiro
+  const linha = parseInt(numeros[0], 10); 
+  const coluna = parseInt(numeros[1], 10); 
 
   let resultado;
     resultado = matriz[linha][coluna];
@@ -176,7 +173,6 @@ const numeros = str.match(/\d+/g);
     reply.send({estadoGame: 0})
  }
 }
-
 
 module.exports = {
 
