@@ -1,6 +1,7 @@
 'use client';
 
 import { CaretDownIcon } from '@radix-ui/react-icons'
+import { useRouter } from 'next/navigation';
 
 import CustomButton from '@/components/CustomButton';
 
@@ -11,6 +12,8 @@ interface AsideProps {
 const games = ["Mine", "Cannon", "Carrot"]
 
 export default function Aside({ }: AsideProps) {
+  const router  = useRouter()
+
   return (
     <aside className="w-auto text-white z-10 [clip-path:_inset(-100vmax_0)] shadow-[0_0_0_100vmax_#0E0C2B] col-span-1 row-span-2 pt-@lg sticky justify-center items-center px-@sm bottom-0 bg-@dark h-screen">
       <CustomButton>Resgatar ticket 🎉</CustomButton>

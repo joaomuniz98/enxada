@@ -7,7 +7,9 @@ import { useRouter } from "next/navigation";
 import useSetUserContext from "../useSetUserContext";
 
 import AuthService from "@/services/auth";
+import CustomButton from "@/components/CustomButton";
 
+import { InstagramLogoIcon, FaceIcon } from '@radix-ui/react-icons'
 
 interface LoginProps {
 
@@ -34,20 +36,25 @@ export default function Login({ }: LoginProps) {
   }
 
   return (
-    <dialog open className="fixed z-[1000] shadow-[0_0_0_100vmax_#11111189] top-1/2 left-1/2 -translate-x-1/2 p-@md py-@sm -translate-y-1/2 bg-gray-800">
+    <dialog open className="fixed z-[1000] w-[420px] shadow-[0_0_0_100vmax_#11111189] top-1/2 left-1/2 -translate-x-1/2 px-8 py-4 -translate-y-1/2 bg-@dark">
       <form className="text-white" action="" onSubmit={onSubmit}>
-        <legend className="text-4xl mb-@md text-center font-bold">Login</legend>
+        <legend className="text-2xl mb-@md text-center font-bold">Fazer o login em sua conta</legend>
         <fieldset className="text-white">
-          <label className="mb-2 block" htmlFor="email">Email</label>
-          <input ref={emailRef} required name="email" className="w-full mb-4 py-4 px-2 rounded-md text-gray-400" placeholder="johndoe@mail.com" type="text" />
-          <label className="mb-2 block" htmlFor="">Senha</label>
-          <input ref={passwordRef} required className="w-full py-4 px-2 rounded-md text-gray-400" placeholder="johndoe123" type="text" />
-          {/* <article className="w-full">
-          </article> */}
-          <div className="mt-@lg flex justify-between">
-            <button type="button" onClick={() => router.replace("?modal=")} className="underline">Fechar</button>
-            <button className="float-right bg-red-600 px-4 py-2 rounded-sm">Confirmar</button>
+          <input ref={emailRef} required name="email" className="w-full mb-8 py-4 px-2 bg-@dark-sec rounded-md text-gray-400" placeholder="Email" type="text" />
+          <input ref={passwordRef} required className="w-full py-4 px-2 mb-4 rounded-md bg-@dark-sec text-gray-400" placeholder="Senha" type="text" />
+          <small className="text-white/50 text-base block mb-4">Esqueceu a senha?</small>
+          <CustomButton className="block w-full mb-8">Confirmar</CustomButton>
+          <hr />
+          <div className="flex items-center gap-4 mb-8">
+            <span className="grow h-[2px] bg-white/20"></span>
+            <span className="text-white/50 text-base ">ou</span>
+            <span className="grow h-[2px] bg-white/20"></span>
           </div>
+          <div className="grid grid-cols-3 mb-8">
+            <InstagramLogoIcon />
+            <FaceIcon />
+          </div>
+          <p>Não tem uma conta? <span className="text-base text-@primary">Crie uma agora!</span></p>
         </fieldset>
       </form>
     </dialog>

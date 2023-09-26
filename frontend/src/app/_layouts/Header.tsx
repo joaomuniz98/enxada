@@ -14,11 +14,11 @@ export default function Header({ }: HeaderProps) {
   const game = useGameContext()
 
   return (
-    <header className="w-full h-auto flex flex-col sticky top-0 z-10 items-stretch">
-      <div className="max-w-[100em] px-@section mx-auto py-8 h-1/4 bg-@primary [clip-path:_inset(0_-100vmax)] shadow-[0_0_0_100vmax_#9EC913] grid place-content-center">
+    <header className="w-full h-36 flex flex-col sticky top-0 z-10 items-stretch">
+      <div className="max-w-@baseSectionWidth mx-@section py-8 h-1/4 bg-@primary [clip-path:_inset(0_-100vmax)] shadow-[0_0_0_100vmax_#9EC913] grid place-content-center">
         <h5 className="text-center text-white text-base">Seja bem-vindo a Enxadata bet! Receba um bônus de primeira vez 🎁</h5>
       </div>
-      <div className="max-w-[100em] px-@section mx-auto flex [clip-path:_inset(0_-100vmax)] justify-between shadow-[0_0_0_100vmax_#0E0C2B] h-auto py-4 bg-@dark">
+      <div className="max-w-@baseSectionWidth mx-@section flex [clip-path:_inset(0_-100vmax)] justify-between shadow-[0_0_0_100vmax_#0E0C2B] h-auto py-4 bg-@dark">
         <div className="flex tex-white items-center ">
           <img src="./logo.webp" className="w-[48px] invert mix-blend-multiply aspect-square" alt="" />
           <h5 className="text-center text-4xl text-white">Enxada</h5>
