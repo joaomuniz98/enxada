@@ -18,6 +18,35 @@ async function criarPartidaMine(request, reply) {
 
   try {
 
+    
+const user = await prisma.user.findUnique({
+  where: {
+    userId: userId,
+  },
+});
+
+
+if(user){
+
+  const valorAtual = user.valor
+
+  const valorNovo = valorAtual - valor
+
+  const atualizacaoUsuario = await prisma.user.update({
+    where: {
+      userId: userId,
+    },
+    data: {
+      valor: novoValor,
+    },
+  });
+
+  console.log(`O novo valor do usuário ${userId} é: ${novoValor}`);
+} else {
+  console.error(`Usuário com userId ${userId} não encontrado`);
+}
+
+
     const matriz = [ 
       [0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0],
@@ -124,8 +153,11 @@ const  procurarPartidaCriada = await prisma.mine.findFirst({
     estado: false,
   },
 });
-    debugger   
+    
 let matriz  = JSON.parse(procurarPartidaCriada.matriz);
+
+
+let posicaoSeleciona = posicao
 
 
 const str = posicao;

@@ -12,7 +12,6 @@ interface AsideProps {
 const games = ["Mine", "Cannon", "Carrot"]
 
 export default function Aside({ }: AsideProps) {
-
   const router  = useRouter()
 
   return (
