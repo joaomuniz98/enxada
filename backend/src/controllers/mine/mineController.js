@@ -104,6 +104,30 @@ if(user){
     },
  
 })
+  const buscarUser = await prisma.user.findUnique({where:{
+    userId: userId
+  }})
+
+  let valorUser = buscarUser.valor
+
+  if(valorUser.valor > valor){
+
+        let novoValor = valorUser.valor - valor;
+
+       await prisma.user.update({where:{
+          userId: userId
+          ,
+        },
+        data:{
+          valor: novoValor 
+        }
+      })
+      
+  }else{
+
+    reply.status(401).send({ message: "Não tem fundos suficientes." });
+  }
+
    reply.send({ message: novoJogo });
    debugger
   } catch (err) {
@@ -115,28 +139,33 @@ if(user){
 }
 
 async function partidaAndamento(request,reply){
- 
+
 const { idMatch , userId , posicao } = request.body
 
+console.log("IdMatch" + idMatch)
+console.log("userId" + userId)
+console.log("posicao" + idMatch)
 
-const  procurarPartidaCriada = await prisma.mine.findUnique({
+const  procurarPartidaCriada = await prisma.mine.findFirst({
   where: {
     idMatch: idMatch,
     userId: userId,
     estado: false,
   },
 });
-
-       
-let matriz  = procurarPartidaCriada.matriz
+    
+let matriz  = JSON.parse(procurarPartidaCriada.matriz);
 let posicaoSeleciona = posicao
 
-let linha = posicaoSeleciona[0]
-let coluna =  posicaoSeleciona[1]
+const str = posicao;
+const numeros = str.match(/\d+/g); 
 
-let resultado 
+  const linha = parseInt(numeros[0], 10); 
+  const coluna = parseInt(numeros[1], 10); 
 
- resultado = matriz[linha][coluna]
+  let resultado;
+    resultado = matriz[linha][coluna];
+
 
  if(resultado === 1){
     reply.send({estadoGame: 1})
@@ -145,9 +174,9 @@ let resultado
  }
 }
 
-
 module.exports = {
 
     criarPartidaMine,
+    partidaAndamento
  
 };
