@@ -25,7 +25,7 @@ export default function Logo({ className, variant, ...props }: LogoProps) {
   return (
     <div className={cn(variants({ className, variant }))}>
       <img src="/logo.png" alt="Logo image" {...props} className="mix-blend-luminosity" />
-      <h5 className="text-@strong font-inter">Enxada</h5>
+      <h5 className="text-@strong font-inter text-white">Enxada</h5>
     </div>
   )
 }

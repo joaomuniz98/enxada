@@ -2,7 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter, Poppins } from 'next/font/google'
 
-import Aside from './_layouts/Aside'
+import Aside from './_layouts/Sidebar'
 import Header from './_layouts/Header'
 import Providers from '@/contexts/Providers'
 
@@ -23,11 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className} ${inter.className} font-poppins bg-@dark-sec sticky top-0 h-screen flex flex-col`}>
         <Providers>
-          <div className='grid grid-cols-[auto_1fr] grid-rows-[auto_1fr]'>
-            <Aside />
-            <Header />
-            {children}
-          </div>
+          <Aside />
+          <Header />
+          {children}
         </Providers>
       </body>
     </html>

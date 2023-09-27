@@ -1,12 +1,17 @@
 @tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 :root {
   --main-background-color: #fff;
   --section-padding: clamp(5em, 21vh, 12em);
   --container-padding: clamp(2.5em, 8vw, 8em);
   --gap-padding: clamp(1.5em, 4vw, 2.5em);
+  --header-height: 120px;
+  --sidebar-width: 245px;
+  --content-width: 1080px;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 
 @media (width <= 1024px) {
@@ -42,5 +47,8 @@ span,
 legend {
   font-size: 1.25rem;
   font-weight: 300;
-  letter-spacing: -.02rem;
+  letter-spacing: -0.02rem;
 }
+
+@tailwind components;
+@tailwind utilities;
